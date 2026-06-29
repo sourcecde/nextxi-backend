@@ -1,4 +1,4 @@
-package com.example.nextxibackend
+package com.debrajghosh.nextxi
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

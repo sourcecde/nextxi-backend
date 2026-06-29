@@ -1,3 +1,18 @@
 spring:
   application:
     name: nextxi-backend
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/nextxi
+    username: nextxi
+    password: nextxi
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    open-in-view: false
+
+  sql:
+    init:
+      mode: never
