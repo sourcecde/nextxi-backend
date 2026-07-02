@@ -1,6 +1,5 @@
-package com.debrajghosh.nextxi.country.controller
+package com.debrajghosh.nextxi.controller
 
-import com.debrajghosh.nextxi.controller.CountryController
 import com.debrajghosh.nextxi.dto.CountryDTO
 import com.debrajghosh.nextxi.service.CountryService
 import org.junit.jupiter.api.Test
