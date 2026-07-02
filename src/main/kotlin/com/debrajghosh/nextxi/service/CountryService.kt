@@ -22,5 +22,9 @@ class CountryService ( private val repository: CountryRepository) {
             ?.let(CountryDTO::fromObject)
     }
 
+    fun getCountryByName(countryName: String): CountryDTO? {
+        return repository.findByName(countryName)?.let(CountryDTO::fromObject)
+    }
+
 
 }
