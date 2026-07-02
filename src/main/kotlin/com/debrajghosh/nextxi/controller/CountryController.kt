@@ -27,4 +27,9 @@ class CountryController(
     fun getCountryByCode(@PathVariable code: String): CountryDTO? {
         return countryService.getCountryByCode(code)
     }
+
+    @GetMapping("/name/{name}")
+    fun getCountryByName(@PathVariable name: String): CountryDTO? {
+        return countryService.getCountryByName(name)
+    }
 }

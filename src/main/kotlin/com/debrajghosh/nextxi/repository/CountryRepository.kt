@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface CountryRepository : JpaRepository<Country, Long> {
     fun findByCode(code: String): Country?
-    fun findByName(code: String): Country?
-    fun existsByCode(code: String): Boolean
+    fun findByName(name: String): Country?
 }
