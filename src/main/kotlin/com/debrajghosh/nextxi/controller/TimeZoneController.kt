@@ -22,4 +22,9 @@ class TimeZoneController (private val timeZoneService: TimeZoneService) {
         return timeZoneService.getTimeZoneById(id)
     }
 
+    @GetMapping("/{name}")
+    fun getTimeZoneByName(@PathVariable name: String): TimeZoneDTO? {
+        return timeZoneService.getTimeZoneByName(name)
+    }
+
 }

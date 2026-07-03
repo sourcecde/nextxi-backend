@@ -32,4 +32,13 @@ class TimeZoneService(
             .orElse(null)
             ?.let(TimeZoneDTO::fromObject)
     }
+
+    /**
+     * retrieve timezone by name
+     * @param name
+     * @return timezone
+     */
+    fun getTimeZoneByName(name: String): TimeZoneDTO? {
+        return timeZoneRepository.findByTimeZoneName(name)
+    }
 }
