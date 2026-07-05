@@ -1,5 +1,5 @@
 CREATE TABLE countries (
-       id BIGSERIAL PRIMARY KEY,
+       id BIGSERIAL PRIMARY KEY NOT NULL,
        name VARCHAR(255) NOT NULL,
        code VARCHAR(10) NOT NULL UNIQUE,
        flag TEXT,
@@ -8,14 +8,14 @@ CREATE TABLE countries (
 );
 
 CREATE TABLE timezones (
-       id BIGSERIAL PRIMARY KEY,
+       id BIGSERIAL PRIMARY KEY NOT NULL,
        timezone_name VARCHAR(100) NOT NULL UNIQUE,
        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE venues (
-        id BIGSERIAL PRIMARY KEY,
+        id BIGSERIAL PRIMARY KEY NOT NULL,
         api_id INTEGER UNIQUE NOT NULL,
         name VARCHAR(255) NOT NULL,
         address VARCHAR(255),
