@@ -1,6 +1,6 @@
 package com.debrajghosh.nextxi.factory
 
-import com.debrajghosh.nextxi.country.entity.Country
+import com.debrajghosh.nextxi.entity.Country
 
 object CountryFactory {
 

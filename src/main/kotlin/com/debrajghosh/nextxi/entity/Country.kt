@@ -1,4 +1,4 @@
-package com.debrajghosh.nextxi.country.entity
+package com.debrajghosh.nextxi.entity
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -14,7 +14,7 @@ class Country(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
+    var id: Long,
 
     @Column(nullable = false, length = 255)
     var name: String,

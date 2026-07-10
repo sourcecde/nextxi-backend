@@ -1,6 +1,6 @@
 package com.debrajghosh.nextxi.repository
 
-import com.debrajghosh.nextxi.country.entity.Country
+import com.debrajghosh.nextxi.entity.Country
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
