@@ -1,9 +1,9 @@
 package com.debrajghosh.nextxi.dto
 
-import com.debrajghosh.nextxi.country.entity.Country
+import com.debrajghosh.nextxi.entity.Country
 
 data class CountryDTO(
-    val id: Long?,
+    val id: Long,
     val name: String,
     val code: String,
     val flag: String?,
