@@ -21,6 +21,7 @@ class Coach(
     var currentTeamId: Long? = null,
 
     @ManyToOne
+    @Suppress("unused")
     @JoinColumn(name = "current_team_id", nullable = true, insertable = false, updatable = false, foreignKey = ForeignKey(name = "fk_coach_current_team"))
     var currentTeam: Team? = null,
 
