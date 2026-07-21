@@ -1,7 +1,6 @@
 package com.debrajghosh.nextxi.service
 
 import com.debrajghosh.nextxi.dto.CoachDTO
-import com.debrajghosh.nextxi.entity.Coach
 import com.debrajghosh.nextxi.repository.CoachRepository
 import org.springframework.stereotype.Service
 
