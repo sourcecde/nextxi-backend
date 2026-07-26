@@ -14,7 +14,7 @@ class Country(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
+    var id: Long? = null,
 
     @Column(nullable = false, length = 255)
     var name: String,
