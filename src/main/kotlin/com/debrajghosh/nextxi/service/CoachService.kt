@@ -1,6 +1,7 @@
 package com.debrajghosh.nextxi.service
 
 import com.debrajghosh.nextxi.dto.CoachDTO
+import com.debrajghosh.nextxi.exception.ResourceNotFoundException
 import com.debrajghosh.nextxi.repository.CoachRepository
 import org.springframework.stereotype.Service
 
@@ -11,14 +12,20 @@ class CoachService(private val repository: CoachRepository) {
         return repository.findAll().map(CoachDTO::fromObject)
     }
 
-    fun getCoachById(id: Long): CoachDTO? {
+    fun getCoachById(id: Long): CoachDTO {
         return repository.findById(id)
-            .orElse(null)
-            ?.let(CoachDTO::fromObject)
+            .orElseThrow {
+                ResourceNotFoundException("Coach not found with id: $id")
+            }
+            .let(CoachDTO::fromObject)
     }
 
-    fun getCoachByFullName(fullName: String): CoachDTO? {
-        return repository.findByFullName(fullName)?.let(CoachDTO::fromObject)
+    fun getCoachByFullName(fullName: String): CoachDTO {
+        return repository.findByFullName(fullName)
+            .orElseThrow {
+                ResourceNotFoundException("Coach not found with name: $fullName")
+            }
+            .let(CoachDTO::fromObject)
     }
 
     fun getCoachesByNationality(nationality: String): List<CoachDTO> {

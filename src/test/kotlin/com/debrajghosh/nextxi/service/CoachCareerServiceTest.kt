@@ -1,5 +1,6 @@
 package com.debrajghosh.nextxi.service
 
+import com.debrajghosh.nextxi.exception.ResourceNotFoundException
 import com.debrajghosh.nextxi.factory.CoachCareerFactory
 import com.debrajghosh.nextxi.repository.CoachCareerRepository
 import org.junit.jupiter.api.Assertions
@@ -33,18 +34,18 @@ class CoachCareerServiceTest {
 
         val result = service.getCareerById(1L)
 
-        Assertions.assertEquals(1L, result?.id)
-        Assertions.assertEquals(1L, result?.coachId)
-        Assertions.assertEquals(1L, result?.teamId)
+        Assertions.assertEquals(1L, result.id)
+        Assertions.assertEquals(1L, result.coachId)
+        Assertions.assertEquals(1L, result.teamId)
     }
 
     @Test
-    fun `should return null when career id not found`() {
+    fun `should throw ResourceNotFoundException when career id not found`() {
         Mockito.`when`(repository.findById(99L)).thenReturn(Optional.empty())
 
-        val result = service.getCareerById(99L)
-
-        Assertions.assertNull(result)
+        Assertions.assertThrows(ResourceNotFoundException::class.java) {
+            service.getCareerById(99L)
+        }
     }
 
     @Test

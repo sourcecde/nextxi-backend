@@ -1,5 +1,6 @@
 package com.debrajghosh.nextxi.service
 
+import com.debrajghosh.nextxi.exception.ResourceNotFoundException
 import com.debrajghosh.nextxi.factory.CoachFactory
 import com.debrajghosh.nextxi.repository.CoachRepository
 import org.junit.jupiter.api.Assertions
@@ -33,40 +34,40 @@ class CoachServiceTest {
 
         val result = service.getCoachById(1L)
 
-        Assertions.assertEquals(1L, result?.id)
-        Assertions.assertEquals("Pep Guardiola", result?.fullName)
-        Assertions.assertEquals("Spain", result?.nationality)
+        Assertions.assertEquals(1L, result.id)
+        Assertions.assertEquals("Pep Guardiola", result.fullName)
+        Assertions.assertEquals("Spain", result.nationality)
     }
 
     @Test
-    fun `should return null when coach id is not found`() {
+    fun `should throw ResourceNotFoundException when coach id is not found`() {
         Mockito.`when`(repository.findById(99L)).thenReturn(Optional.empty())
 
-        val result = service.getCoachById(99L)
-
-        Assertions.assertNull(result)
+        Assertions.assertThrows(ResourceNotFoundException::class.java) {
+            service.getCoachById(99L)
+        }
     }
 
     @Test
     fun `should return coach by full name`() {
         val coach = CoachFactory.mourinho()
 
-        Mockito.`when`(repository.findByFullName("Jose Mourinho")).thenReturn(coach)
+        Mockito.`when`(repository.findByFullName("Jose Mourinho")).thenReturn(Optional.of(coach))
 
         val result = service.getCoachByFullName("Jose Mourinho")
 
-        Assertions.assertEquals(2L, result?.id)
-        Assertions.assertEquals("Jose Mourinho", result?.fullName)
-        Assertions.assertEquals("Portugal", result?.nationality)
+        Assertions.assertEquals(2L, result.id)
+        Assertions.assertEquals("Jose Mourinho", result.fullName)
+        Assertions.assertEquals("Portugal", result.nationality)
     }
 
     @Test
-    fun `should return null when coach name not found`() {
-        Mockito.`when`(repository.findByFullName("NonExistent")).thenReturn(null)
+    fun `should throw ResourceNotFoundException when coach name not found`() {
+        Mockito.`when`(repository.findByFullName("NonExistent")).thenReturn(Optional.empty())
 
-        val result = service.getCoachByFullName("NonExistent")
-
-        Assertions.assertNull(result)
+        Assertions.assertThrows(ResourceNotFoundException::class.java) {
+            service.getCoachByFullName("NonExistent")
+        }
     }
 
     @Test

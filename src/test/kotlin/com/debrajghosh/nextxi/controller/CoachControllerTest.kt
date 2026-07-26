@@ -1,6 +1,7 @@
 package com.debrajghosh.nextxi.controller
 
 import com.debrajghosh.nextxi.dto.CoachDTO
+import com.debrajghosh.nextxi.exception.ResourceNotFoundException
 import com.debrajghosh.nextxi.service.CoachService
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyLong
@@ -52,7 +53,7 @@ class CoachControllerTest {
 
     @Test
     fun `should return 404 when coach id not found`() {
-        given(coachService.getCoachById(anyLong())).willReturn(null)
+        given(coachService.getCoachById(anyLong())).willThrow(ResourceNotFoundException("Coach not found"))
 
         mockMvc.perform(get("/api/v1/coaches/999"))
             .andExpect(status().isNotFound)

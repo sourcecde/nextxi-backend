@@ -2,7 +2,6 @@ package com.debrajghosh.nextxi.controller
 
 import com.debrajghosh.nextxi.dto.CoachDTO
 import com.debrajghosh.nextxi.service.CoachService
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -17,14 +16,10 @@ class CoachController(private val coachService: CoachService) {
     fun getAllCoaches(): List<CoachDTO> = coachService.getAllCoaches()
 
     @GetMapping("/{id}")
-    fun getCoachById(@PathVariable id: Long): ResponseEntity<CoachDTO> {
-        return coachService.getCoachById(id)?.let { ResponseEntity.ok(it) } ?: ResponseEntity.notFound().build()
-    }
+    fun getCoachById(@PathVariable id: Long): CoachDTO = coachService.getCoachById(id)
 
     @GetMapping("/name/{fullName}")
-    fun getCoachByFullName(@PathVariable fullName: String): ResponseEntity<CoachDTO> {
-        return coachService.getCoachByFullName(fullName)?.let { ResponseEntity.ok(it) } ?: ResponseEntity.notFound().build()
-    }
+    fun getCoachByFullName(@PathVariable fullName: String): CoachDTO = coachService.getCoachByFullName(fullName)
 
     @GetMapping("/nationality")
     fun getCoachesByNationality(@RequestParam nationality: String): List<CoachDTO> = coachService.getCoachesByNationality(nationality)

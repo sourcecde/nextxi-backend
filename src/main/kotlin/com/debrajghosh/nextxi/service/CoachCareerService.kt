@@ -1,6 +1,7 @@
 package com.debrajghosh.nextxi.service
 
 import com.debrajghosh.nextxi.dto.CoachCareerDTO
+import com.debrajghosh.nextxi.exception.ResourceNotFoundException
 import com.debrajghosh.nextxi.repository.CoachCareerRepository
 import org.springframework.stereotype.Service
 
@@ -11,8 +12,12 @@ class CoachCareerService(private val repository: CoachCareerRepository) {
         return repository.findAll().map(CoachCareerDTO::fromObject)
     }
 
-    fun getCareerById(id: Long): CoachCareerDTO? {
-        return repository.findById(id).orElse(null)?.let(CoachCareerDTO::fromObject)
+    fun getCareerById(id: Long): CoachCareerDTO {
+        return repository.findById(id)
+            .orElseThrow {
+                ResourceNotFoundException("Coach career not found with id: $id")
+            }
+            .let(CoachCareerDTO::fromObject)
     }
 
     fun getCareersByCoach(coachId: Long): List<CoachCareerDTO> {

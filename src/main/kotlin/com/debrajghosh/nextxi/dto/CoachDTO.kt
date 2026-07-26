@@ -4,7 +4,7 @@ import com.debrajghosh.nextxi.entity.Coach
 import java.time.LocalDate
 
 data class CoachDTO(
-    val id: Long,
+    val id: Long?,
     val currentTeamId: Long?,
     val firstName: String?,
     val lastName: String?,
