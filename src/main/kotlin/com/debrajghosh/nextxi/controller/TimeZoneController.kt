@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
-
 @RestController
 @RequestMapping("/api/v1/timezones")
-class TimeZoneController (private val timeZoneService: TimeZoneService) {
+class TimeZoneController(private val timeZoneService: TimeZoneService) {
 
     @GetMapping
     fun getAllTimeZones(): List<TimeZoneDTO> {
@@ -19,15 +18,14 @@ class TimeZoneController (private val timeZoneService: TimeZoneService) {
     }
 
     @GetMapping("/id/{id}")
-    fun getTimeZoneById(@PathVariable id: Long): TimeZoneDTO? {
+    fun getTimeZoneById(@PathVariable id: Long): TimeZoneDTO {
         return timeZoneService.getTimeZoneById(id)
     }
 
     @GetMapping("/timezoneName")
     fun getTimeZoneByName(
         @RequestParam name: String
-    ): TimeZoneDTO? {
+    ): TimeZoneDTO {
         return timeZoneService.getTimeZoneByName(name)
     }
-
 }
