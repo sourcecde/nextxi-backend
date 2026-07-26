@@ -1,7 +1,7 @@
 package com.debrajghosh.nextxi.service
 
 import com.debrajghosh.nextxi.dto.TeamDTO
-import com.debrajghosh.nextxi.entity.Team
+import com.debrajghosh.nextxi.exception.ResourceNotFoundException
 import com.debrajghosh.nextxi.repository.TeamRepository
 import org.springframework.stereotype.Service
 
@@ -24,34 +24,42 @@ class TeamService(private val repository: TeamRepository) {
      * Retrieves a team by database ID.
      *
      * @param id Database ID.
-     * @return TeamDTO or null if not found.
+     * @return TeamDTO.
      */
-    fun getTeamById(id: Long): TeamDTO? {
+    fun getTeamById(id: Long): TeamDTO {
         return repository.findById(id)
-            .orElse(null)
-            ?.let(TeamDTO::fromObject)
+            .orElseThrow {
+                ResourceNotFoundException("Team not found with id: $id")
+            }
+            .let(TeamDTO::fromObject)
     }
 
     /**
      * Retrieves a team by name.
      *
      * @param name Team name.
-     * @return TeamDTO or null if not found.
+     * @return TeamDTO.
      */
-    fun getTeamByName(name: String): TeamDTO? {
+    fun getTeamByName(name: String): TeamDTO {
         return repository.findByName(name)
-            ?.let(TeamDTO::fromObject)
+            .orElseThrow {
+                ResourceNotFoundException("Team not found with name: $name")
+            }
+            .let(TeamDTO::fromObject)
     }
 
     /**
      * Retrieves a team by code.
      *
      * @param code Team code.
-     * @return TeamDTO or null if not found.
+     * @return TeamDTO.
      */
-    fun getTeamByCode(code: String): TeamDTO? {
+    fun getTeamByCode(code: String): TeamDTO {
         return repository.findByCode(code)
-            ?.let(TeamDTO::fromObject)
+            .orElseThrow {
+                ResourceNotFoundException("Team not found with code: $code")
+            }
+            .let(TeamDTO::fromObject)
     }
 
     /**
@@ -82,5 +90,15 @@ class TeamService(private val repository: TeamRepository) {
      */
     fun getTeamsByVenue(venueId: Long): List<TeamDTO> {
         return repository.findByVenueId(venueId).map(TeamDTO::fromObject)
+    }
+
+    /**
+     * Retrieves all teams by external team ID.
+     *
+     * @param teamId External team ID.
+     * @return List of teams associated with the external team ID.
+     */
+    fun getTeamsByTeamId(teamId: Long): List<TeamDTO> {
+        return repository.findByTeamId(teamId).map(TeamDTO::fromObject)
     }
 }

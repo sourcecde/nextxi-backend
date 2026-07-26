@@ -7,6 +7,7 @@ object TeamFactory {
 
     fun bayern() = Team(
         id = 1L,
+        teamId = 1L,
         venueId = 1L,
         name = "Bayern Munich",
         code = "BAY",
@@ -20,6 +21,7 @@ object TeamFactory {
 
     fun manchester() = Team(
         id = 2L,
+        teamId = 2L,
         venueId = 3L,
         name = "Manchester United",
         code = "MNU",
@@ -33,6 +35,7 @@ object TeamFactory {
 
     fun parisStGermain() = Team(
         id = 3L,
+        teamId = 3L,
         venueId = null,
         name = "Paris Saint-Germain",
         code = "PSG",
@@ -46,6 +49,7 @@ object TeamFactory {
 
     fun germany() = Team(
         id = 4L,
+        teamId = 4L,
         venueId = null,
         name = "Germany",
         code = "GER",
@@ -59,6 +63,7 @@ object TeamFactory {
 
     fun france() = Team(
         id = 5L,
+        teamId = 5L,
         venueId = null,
         name = "France",
         code = "FRA",
@@ -72,6 +77,7 @@ object TeamFactory {
 
     fun custom(
         id: Long = 1L,
+        teamId: Long = id,
         venueId: Long? = null,
         name: String = "Test Team",
         code: String? = "TST",
@@ -81,6 +87,7 @@ object TeamFactory {
         logo: String? = "https://test.png"
     ) = Team(
         id = id,
+        teamId = teamId,
         venueId = venueId,
         name = name,
         code = code,

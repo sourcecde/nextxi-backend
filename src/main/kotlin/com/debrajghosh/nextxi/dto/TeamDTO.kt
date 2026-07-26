@@ -3,7 +3,8 @@ package com.debrajghosh.nextxi.dto
 import com.debrajghosh.nextxi.entity.Team
 
 data class TeamDTO(
-    val id: Long,
+    val id: Long?,
+    val teamId: Long?,
     val venueId: Long?,
     val name: String,
     val code: String?,
@@ -16,6 +17,7 @@ data class TeamDTO(
         fun fromObject(team: Team): TeamDTO {
             return TeamDTO(
                 id = team.id,
+                teamId = team.teamId,
                 venueId = team.venueId,
                 name = team.name,
                 code = team.code,

@@ -1,6 +1,6 @@
 CREATE TABLE teams (
-       id BIGINT PRIMARY KEY,
-
+       id BIGSERIAL PRIMARY KEY NOT NULL,
+       team_id BIGINT UNIQUE NOT NULL,
        venue_id BIGINT,
 
        name VARCHAR(255) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE teams (
        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-       CONSTRAINT fk_team_venue FOREIGN KEY (venue_id) REFERENCES venues(id) ON DELETE SET NULL
+       CONSTRAINT fk_team_venue FOREIGN KEY (venue_id) REFERENCES venues(venue_id) ON DELETE SET NULL
 );
 
 CREATE INDEX idx_teams_country ON teams(country);
