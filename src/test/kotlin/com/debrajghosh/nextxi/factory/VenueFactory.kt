@@ -7,7 +7,7 @@ object VenueFactory {
 
     fun allianzArena() = Venue(
         id = 1L,
-        apiId = 6,
+        venueId = 6,
         name = "Allianz Arena",
         address = "Werner-Heisenberg-Allee 25",
         city = "Munich",
@@ -21,7 +21,7 @@ object VenueFactory {
 
     fun olympiastadion() = Venue(
         id = 2L,
-        apiId = 10,
+        venueId = 10,
         name = "Olympiastadion",
         address = "Olympischer Platz 3",
         city = "Berlin",
@@ -35,7 +35,7 @@ object VenueFactory {
 
     fun stamfordBridge() = Venue(
         id = 3L,
-        apiId = 15,
+        venueId = 15,
         name = "Stamford Bridge",
         address = "Fulham Road",
         city = "London",
@@ -49,7 +49,7 @@ object VenueFactory {
 
     fun custom(
         id: Long = 1L,
-        apiId: Int = 1,
+        venueId: Int = 1,
         name: String = "Test Venue",
         address: String? = "123 Test Street",
         city: String? = "Test City",
@@ -59,7 +59,7 @@ object VenueFactory {
         image: String? = "https://test.png"
     ) = Venue(
         id = id,
-        apiId = apiId,
+        venueId = venueId,
         name = name,
         address = address,
         city = city,

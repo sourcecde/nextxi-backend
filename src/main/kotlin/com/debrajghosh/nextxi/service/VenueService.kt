@@ -1,6 +1,7 @@
 package com.debrajghosh.nextxi.service
 
 import com.debrajghosh.nextxi.dto.VenueDTO
+import com.debrajghosh.nextxi.exception.ResourceNotFoundException
 import com.debrajghosh.nextxi.repository.VenueRepository
 import org.springframework.stereotype.Service
 
@@ -23,33 +24,41 @@ class VenueService(private val repository: VenueRepository) {
      * Retrieve a venue by database ID.
      *
      * @param id Database ID.
-     * @return VenueDTO or null if not found.
+     * @return VenueDTO.
      */
-    fun getVenueById(id: Long): VenueDTO? {
+    fun getVenueById(id: Long): VenueDTO {
         return repository.findById(id)
-            .orElse(null)
-            ?.let(VenueDTO::fromObject)
+            .orElseThrow {
+                ResourceNotFoundException("Venue not found with id: $id")
+            }
+            .let(VenueDTO::fromObject)
     }
 
     /**
-     * Retrieve a venue by API ID.
+     * Retrieve a venue by venue ID (external API id stored as venue_id).
      *
-     * @param apiId External API venue ID.
-     * @return VenueDTO or null if not found.
+     * @param venueId External API venue ID.
+     * @return VenueDTO.
      */
-    fun getVenueByApiId(apiId: Int): VenueDTO? {
-        return repository.findByApiId(apiId)
-            ?.let(VenueDTO::fromObject)
+    fun getVenueByVenueId(venueId: Int): VenueDTO {
+        return repository.findByVenueId(venueId)
+            .orElseThrow {
+                ResourceNotFoundException("Venue not found with venueId: $venueId")
+            }
+            .let(VenueDTO::fromObject)
     }
 
     /**
      * Retrieve a venue by name.
      *
      * @param venueName Venue name.
-     * @return VenueDTO or null if not found.
+     * @return VenueDTO.
      */
-    fun getVenueByName(venueName: String): VenueDTO? {
+    fun getVenueByName(venueName: String): VenueDTO {
         return repository.findByName(venueName)
-            ?.let(VenueDTO::fromObject)
+            .orElseThrow {
+                ResourceNotFoundException("Venue not found with name: $venueName")
+            }
+            .let(VenueDTO::fromObject)
     }
 }

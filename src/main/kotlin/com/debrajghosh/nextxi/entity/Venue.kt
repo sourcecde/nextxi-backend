@@ -5,6 +5,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import java.time.LocalDateTime
 
@@ -14,10 +15,10 @@ class Venue(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
+    var id: Long? = null,
 
-    @Column(name = "api_id", nullable = false)
-    var apiId: Int,
+    @Column(name = "venue_id", nullable = false)
+    var venueId: Int,
 
     @Column(nullable = false, length = 255)
     var name: String,
@@ -44,5 +45,7 @@ class Venue(
     var createdAt: LocalDateTime = LocalDateTime.now(),
 
     @Column(name = "updated_at", nullable = false)
-    var updatedAt: LocalDateTime = LocalDateTime.now()
+    var updatedAt: LocalDateTime = LocalDateTime.now(),
+    @OneToMany(mappedBy = "venue")
+    var teams: MutableSet<Team> = mutableSetOf()
 )
