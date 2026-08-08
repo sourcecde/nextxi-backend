@@ -3,9 +3,19 @@ spring:
     name: nextxi-backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/nextxi
+    url: jdbc:postgresql://localhost:5432/nextxi?currentSchema=public
     username: nextxi
     password: nextxi
+
+  flyway:
+    schemas:
+      - public
+    default-schema: public
+    create-schemas: true
+    baseline-on-migrate: true
+    baseline-version: 0
+    repair-on-migrate: true
+    validate-on-migrate: false
 
   jpa:
     hibernate:
@@ -17,8 +27,15 @@ spring:
     init:
       mode: never
 
-  management:
-    endpoints:
-      web:
-        exposure:
-          include: health,info
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+  api-docs:
+    path: /v3/api-docs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,flyway

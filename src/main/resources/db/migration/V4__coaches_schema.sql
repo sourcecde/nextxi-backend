@@ -1,4 +1,4 @@
-CREATE TABLE coaches (
+CREATE TABLE IF NOT EXISTS coaches (
      id BIGINT PRIMARY KEY,
 
      current_team_id BIGINT,
@@ -28,7 +28,7 @@ CREATE TABLE coaches (
 
 
 
-CREATE TABLE coach_careers (
+CREATE TABLE IF NOT EXISTS coach_careers (
        id BIGSERIAL PRIMARY KEY,
 
        coach_id BIGINT NOT NULL,
@@ -44,8 +44,8 @@ CREATE TABLE coach_careers (
        CONSTRAINT fk_coach_career_team FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE CASCADE
 );
 
-CREATE INDEX idx_coach_current_team ON coaches(current_team_id);
-CREATE INDEX idx_coach_nationality ON coaches(nationality);
+CREATE INDEX IF NOT EXISTS idx_coach_current_team ON coaches(current_team_id);
+CREATE INDEX IF NOT EXISTS idx_coach_nationality ON coaches(nationality);
 
-CREATE INDEX idx_career_coach ON coach_careers(coach_id);
-CREATE INDEX idx_career_team ON coach_careers(team_id);
+CREATE INDEX IF NOT EXISTS idx_career_coach ON coach_careers(coach_id);
+CREATE INDEX IF NOT EXISTS idx_career_team ON coach_careers(team_id);

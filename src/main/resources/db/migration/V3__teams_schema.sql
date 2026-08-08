@@ -1,4 +1,4 @@
-CREATE TABLE teams (
+CREATE TABLE IF NOT EXISTS teams (
        id BIGINT PRIMARY KEY,
 
        venue_id BIGINT,
@@ -17,7 +17,7 @@ CREATE TABLE teams (
        CONSTRAINT fk_team_venue FOREIGN KEY (venue_id) REFERENCES venues(id) ON DELETE SET NULL
 );
 
-CREATE INDEX idx_teams_country ON teams(country);
-CREATE INDEX idx_teams_national ON teams(national);
-CREATE INDEX idx_teams_venue ON teams(venue_id);
+CREATE INDEX IF NOT EXISTS idx_teams_country ON teams(country);
+CREATE INDEX IF NOT EXISTS idx_teams_national ON teams(national);
+CREATE INDEX IF NOT EXISTS idx_teams_venue ON teams(venue_id);
 
