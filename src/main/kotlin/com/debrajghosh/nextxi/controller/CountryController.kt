@@ -19,17 +19,17 @@ class CountryController(
     }
 
     @GetMapping("/{id}")
-    fun getCountryById(@PathVariable id: Long): CountryDTO? {
+    fun getCountryById(@PathVariable id: Long): CountryDTO {
         return countryService.getCountryById(id)
     }
 
     @GetMapping("/code/{code}")
-    fun getCountryByCode(@PathVariable code: String): CountryDTO? {
+    fun getCountryByCode(@PathVariable code: String): CountryDTO {
         return countryService.getCountryByCode(code)
     }
 
     @GetMapping("/name/{name}")
-    fun getCountryByName(@PathVariable name: String): CountryDTO? {
+    fun getCountryByName(@PathVariable name: String): CountryDTO {
         return countryService.getCountryByName(name)
     }
 }

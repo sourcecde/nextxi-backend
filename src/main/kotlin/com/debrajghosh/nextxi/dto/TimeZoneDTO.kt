@@ -3,7 +3,7 @@ package com.debrajghosh.nextxi.dto
 import com.debrajghosh.nextxi.entity.TimeZone
 
 data class TimeZoneDTO (
-    val id: Long,
+    val id: Long?,
     val timeZoneName: String,
 
 ){

@@ -19,17 +19,17 @@ class VenueController(
     }
 
     @GetMapping("/{id}")
-    fun getVenueById(@PathVariable id: Long): VenueDTO? {
+    fun getVenueById(@PathVariable id: Long): VenueDTO {
         return venueService.getVenueById(id)
     }
 
-    @GetMapping("/api-id/{apiId}")
-    fun getVenueByApiId(@PathVariable apiId: Int): VenueDTO? {
-        return venueService.getVenueByApiId(apiId)
+    @GetMapping("/venue-id/{venueId}")
+    fun getVenueByVenueId(@PathVariable venueId: Int): VenueDTO {
+        return venueService.getVenueByVenueId(venueId)
     }
 
     @GetMapping("/name/{name}")
-    fun getVenueByName(@PathVariable name: String): VenueDTO? {
+    fun getVenueByName(@PathVariable name: String): VenueDTO {
         return venueService.getVenueByName(name)
     }
 }

@@ -1,6 +1,7 @@
 package com.debrajghosh.nextxi.service
 
 import com.debrajghosh.nextxi.dto.TimeZoneDTO
+import com.debrajghosh.nextxi.exception.ResourceNotFoundException
 import com.debrajghosh.nextxi.repository.TimeZoneRepository
 import org.springframework.stereotype.Service
 
@@ -26,11 +27,12 @@ class TimeZoneService(
      * @param id
      * @return timezone
      */
-
-    fun getTimeZoneById(id: Long): TimeZoneDTO? {
+    fun getTimeZoneById(id: Long): TimeZoneDTO {
         return timeZoneRepository.findById(id)
-            .orElse(null)
-            ?.let(TimeZoneDTO::fromObject)
+            .orElseThrow {
+                ResourceNotFoundException("TimeZone not found with id: $id")
+            }
+            .let(TimeZoneDTO::fromObject)
     }
 
     /**
@@ -38,7 +40,11 @@ class TimeZoneService(
      * @param name
      * @return timezone
      */
-    fun getTimeZoneByName(name: String): TimeZoneDTO? {
+    fun getTimeZoneByName(name: String): TimeZoneDTO {
         return timeZoneRepository.findByTimeZoneName(name)
+            .orElseThrow {
+                ResourceNotFoundException("TimeZone not found with name: $name")
+            }
+            .let(TimeZoneDTO::fromObject)
     }
 }

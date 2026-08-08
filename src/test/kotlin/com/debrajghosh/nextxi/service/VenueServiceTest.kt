@@ -1,5 +1,6 @@
 package com.debrajghosh.nextxi.service
 
+import com.debrajghosh.nextxi.exception.ResourceNotFoundException
 import com.debrajghosh.nextxi.factory.VenueFactory
 import com.debrajghosh.nextxi.repository.VenueRepository
 import org.junit.jupiter.api.Assertions
@@ -38,62 +39,62 @@ class VenueServiceTest {
 
         val result = service.getVenueById(1L)
 
-        Assertions.assertEquals(1L, result?.id)
-        Assertions.assertEquals("Allianz Arena", result?.name)
-        Assertions.assertEquals("Munich", result?.city)
-        Assertions.assertEquals(75000, result?.capacity)
+        Assertions.assertEquals(1L, result.id)
+        Assertions.assertEquals("Allianz Arena", result.name)
+        Assertions.assertEquals("Munich", result.city)
+        Assertions.assertEquals(75000, result.capacity)
     }
 
     @Test
-    fun `should return null when venue id is not found`() {
+    fun `should throw ResourceNotFoundException when venue id is not found`() {
         Mockito.`when`(repository.findById(99L)).thenReturn(Optional.empty())
 
-        val result = service.getVenueById(99L)
-
-        Assertions.assertNull(result)
+        Assertions.assertThrows(ResourceNotFoundException::class.java) {
+            service.getVenueById(99L)
+        }
     }
 
     @Test
     fun `should return venue by api id`() {
         val venue = VenueFactory.allianzArena()
 
-        Mockito.`when`(repository.findByApiId(6)).thenReturn(venue)
+        Mockito.`when`(repository.findByVenueId(6)).thenReturn(Optional.of(venue))
 
-        val result = service.getVenueByApiId(6)
+        val result = service.getVenueByVenueId(6)
 
-        Assertions.assertEquals(1L, result?.id)
-        Assertions.assertEquals("Allianz Arena", result?.name)
-        Assertions.assertEquals(6, result?.apiId)
+        Assertions.assertEquals(1L, result.id)
+        Assertions.assertEquals("Allianz Arena", result.name)
+        Assertions.assertEquals(6, result.venueId)
     }
 
     @Test
-    fun `should return null when venue api id is not found`() {
-        Mockito.`when`(repository.findByApiId(999)).thenReturn(null)
+    fun `should throw ResourceNotFoundException when venue api id is not found`() {
+        Mockito.`when`(repository.findByVenueId(999)).thenReturn(Optional.empty())
 
-        val result = service.getVenueByApiId(999)
-
-        Assertions.assertNull(result)
+        Assertions.assertThrows(ResourceNotFoundException::class.java) {
+            service.getVenueByVenueId(999)
+        }
     }
 
     @Test
     fun `should return venue by name`() {
         val venue = VenueFactory.stamfordBridge()
 
-        Mockito.`when`(repository.findByName("Stamford Bridge")).thenReturn(venue)
+        Mockito.`when`(repository.findByName("Stamford Bridge")).thenReturn(Optional.of(venue))
 
         val result = service.getVenueByName("Stamford Bridge")
 
-        Assertions.assertEquals(3L, result?.id)
-        Assertions.assertEquals("Stamford Bridge", result?.name)
-        Assertions.assertEquals("London", result?.city)
+        Assertions.assertEquals(3L, result.id)
+        Assertions.assertEquals("Stamford Bridge", result.name)
+        Assertions.assertEquals("London", result.city)
     }
 
     @Test
-    fun `should return null when venue name is not found`() {
-        Mockito.`when`(repository.findByName("NonExistent")).thenReturn(null)
+    fun `should throw ResourceNotFoundException when venue name is not found`() {
+        Mockito.`when`(repository.findByName("NonExistent")).thenReturn(Optional.empty())
 
-        val result = service.getVenueByName("NonExistent")
-
-        Assertions.assertNull(result)
+        Assertions.assertThrows(ResourceNotFoundException::class.java) {
+            service.getVenueByName("NonExistent")
+        }
     }
 }

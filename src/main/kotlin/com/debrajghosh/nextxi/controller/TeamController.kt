@@ -1,16 +1,9 @@
 package com.debrajghosh.nextxi.controller
 
 import com.debrajghosh.nextxi.dto.TeamDTO
-import com.debrajghosh.nextxi.entity.Team
 import com.debrajghosh.nextxi.service.TeamService
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -27,24 +20,18 @@ class TeamController(
     }
 
     @GetMapping("/{id}")
-    fun getTeamById(@PathVariable id: Long): ResponseEntity<TeamDTO> {
+    fun getTeamById(@PathVariable id: Long): TeamDTO {
         return teamService.getTeamById(id)
-            ?.let { ResponseEntity.ok(it) }
-            ?: ResponseEntity.notFound().build()
     }
 
     @GetMapping("/name/{name}")
-    fun getTeamByName(@PathVariable name: String): ResponseEntity<TeamDTO> {
+    fun getTeamByName(@PathVariable name: String): TeamDTO {
         return teamService.getTeamByName(name)
-            ?.let { ResponseEntity.ok(it) }
-            ?: ResponseEntity.notFound().build()
     }
 
     @GetMapping("/code/{code}")
-    fun getTeamByCode(@PathVariable code: String): ResponseEntity<TeamDTO> {
+    fun getTeamByCode(@PathVariable code: String): TeamDTO {
         return teamService.getTeamByCode(code)
-            ?.let { ResponseEntity.ok(it) }
-            ?: ResponseEntity.notFound().build()
     }
 
     @GetMapping("/country")
@@ -60,5 +47,10 @@ class TeamController(
     @GetMapping("/venue/{venueId}")
     fun getTeamsByVenue(@PathVariable venueId: Long): List<TeamDTO> {
         return teamService.getTeamsByVenue(venueId)
+    }
+
+    @GetMapping("/team-id/{teamId}")
+    fun getTeamsByTeamId(@PathVariable teamId: Long): List<TeamDTO> {
+        return teamService.getTeamsByTeamId(teamId)
     }
 }

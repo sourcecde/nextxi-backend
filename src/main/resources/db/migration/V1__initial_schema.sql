@@ -16,7 +16,7 @@ CREATE TABLE timezones (
 
 CREATE TABLE venues (
         id BIGSERIAL PRIMARY KEY NOT NULL,
-        api_id INTEGER UNIQUE NOT NULL,
+        venue_id INTEGER UNIQUE NOT NULL,
         name VARCHAR(255) NOT NULL,
         address VARCHAR(255),
         city VARCHAR(100),

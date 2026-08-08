@@ -1,5 +1,6 @@
 package com.debrajghosh.nextxi.service
 
+import com.debrajghosh.nextxi.exception.ResourceNotFoundException
 import com.debrajghosh.nextxi.factory.TeamFactory
 import com.debrajghosh.nextxi.repository.TeamRepository
 import org.junit.jupiter.api.Assertions
@@ -41,66 +42,66 @@ class TeamServiceTest {
 
         val result = service.getTeamById(1L)
 
-        Assertions.assertEquals(1L, result?.id)
-        Assertions.assertEquals("Bayern Munich", result?.name)
-        Assertions.assertEquals("BAY", result?.code)
-        Assertions.assertEquals("Germany", result?.country)
-        Assertions.assertEquals(false, result?.national)
+        Assertions.assertEquals(1L, result.id)
+        Assertions.assertEquals("Bayern Munich", result.name)
+        Assertions.assertEquals("BAY", result.code)
+        Assertions.assertEquals("Germany", result.country)
+        Assertions.assertEquals(false, result.national)
     }
 
     @Test
-    fun `should return null when team id is not found`() {
+    fun `should throw ResourceNotFoundException when team id is not found`() {
         Mockito.`when`(repository.findById(99L)).thenReturn(Optional.empty())
 
-        val result = service.getTeamById(99L)
-
-        Assertions.assertNull(result)
+        Assertions.assertThrows(ResourceNotFoundException::class.java) {
+            service.getTeamById(99L)
+        }
     }
 
     @Test
     fun `should return team by name`() {
         val team = TeamFactory.manchester()
 
-        Mockito.`when`(repository.findByName("Manchester United")).thenReturn(team)
+        Mockito.`when`(repository.findByName("Manchester United")).thenReturn(Optional.of(team))
 
         val result = service.getTeamByName("Manchester United")
 
-        Assertions.assertEquals(2L, result?.id)
-        Assertions.assertEquals("Manchester United", result?.name)
-        Assertions.assertEquals("MNU", result?.code)
-        Assertions.assertEquals("England", result?.country)
+        Assertions.assertEquals(2L, result.id)
+        Assertions.assertEquals("Manchester United", result.name)
+        Assertions.assertEquals("MNU", result.code)
+        Assertions.assertEquals("England", result.country)
     }
 
     @Test
-    fun `should return null when team name is not found`() {
-        Mockito.`when`(repository.findByName("NonExistent")).thenReturn(null)
+    fun `should throw ResourceNotFoundException when team name is not found`() {
+        Mockito.`when`(repository.findByName("NonExistent")).thenReturn(Optional.empty())
 
-        val result = service.getTeamByName("NonExistent")
-
-        Assertions.assertNull(result)
+        Assertions.assertThrows(ResourceNotFoundException::class.java) {
+            service.getTeamByName("NonExistent")
+        }
     }
 
     @Test
     fun `should return team by code`() {
         val team = TeamFactory.parisStGermain()
 
-        Mockito.`when`(repository.findByCode("PSG")).thenReturn(team)
+        Mockito.`when`(repository.findByCode("PSG")).thenReturn(Optional.of(team))
 
         val result = service.getTeamByCode("PSG")
 
-        Assertions.assertEquals(3L, result?.id)
-        Assertions.assertEquals("Paris Saint-Germain", result?.name)
-        Assertions.assertEquals("PSG", result?.code)
-        Assertions.assertEquals("France", result?.country)
+        Assertions.assertEquals(3L, result.id)
+        Assertions.assertEquals("Paris Saint-Germain", result.name)
+        Assertions.assertEquals("PSG", result.code)
+        Assertions.assertEquals("France", result.country)
     }
 
     @Test
-    fun `should return null when team code is not found`() {
-        Mockito.`when`(repository.findByCode("XYZ")).thenReturn(null)
+    fun `should throw ResourceNotFoundException when team code is not found`() {
+        Mockito.`when`(repository.findByCode("XYZ")).thenReturn(Optional.empty())
 
-        val result = service.getTeamByCode("XYZ")
-
-        Assertions.assertNull(result)
+        Assertions.assertThrows(ResourceNotFoundException::class.java) {
+            service.getTeamByCode("XYZ")
+        }
     }
 
     @Test
@@ -197,6 +198,30 @@ class TeamServiceTest {
         Mockito.`when`(repository.findByVenueId(999L)).thenReturn(emptyList())
 
         val result = service.getTeamsByVenue(999L)
+
+        Assertions.assertEquals(0, result.size)
+    }
+
+    @Test
+    fun `should return teams by team id`() {
+        val teams = listOf(
+            TeamFactory.bayern()
+        )
+
+        Mockito.`when`(repository.findByTeamId(1L)).thenReturn(teams)
+
+        val result = service.getTeamsByTeamId(1L)
+
+        Assertions.assertEquals(1, result.size)
+        Assertions.assertEquals(1L, result[0].teamId)
+        Assertions.assertEquals("Bayern Munich", result[0].name)
+    }
+
+    @Test
+    fun `should return empty list when no teams found for team id`() {
+        Mockito.`when`(repository.findByTeamId(999L)).thenReturn(emptyList())
+
+        val result = service.getTeamsByTeamId(999L)
 
         Assertions.assertEquals(0, result.size)
     }

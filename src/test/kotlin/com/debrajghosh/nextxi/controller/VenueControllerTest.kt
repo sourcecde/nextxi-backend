@@ -1,6 +1,7 @@
 package com.debrajghosh.nextxi.controller
 
 import com.debrajghosh.nextxi.dto.VenueDTO
+import com.debrajghosh.nextxi.exception.ResourceNotFoundException
 import com.debrajghosh.nextxi.service.VenueService
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyInt
@@ -55,31 +56,31 @@ class VenueControllerTest {
     }
 
     @Test
-    fun `should return null when venue id is not found`() {
-        given(venueService.getVenueById(anyLong())).willReturn(null)
+    fun `should return 404 when venue id is not found`() {
+        given(venueService.getVenueById(anyLong())).willThrow(ResourceNotFoundException("Venue not found"))
 
         mockMvc.perform(get("/api/v1/venues/999"))
-            .andExpect(status().isOk)
+            .andExpect(status().isNotFound)
     }
 
     @Test
     fun `should return venue by api id`() {
         val venue = VenueDTO(1L, 6, "Allianz Arena", "Werner-Heisenberg-Allee 25", "Munich", "Germany", 75000, "Grass", "https://media.api-sports.io/venues/1.png")
 
-        given(venueService.getVenueByApiId(anyInt())).willReturn(venue)
+        given(venueService.getVenueByVenueId(anyInt())).willReturn(venue)
 
-        mockMvc.perform(get("/api/v1/venues/api-id/6"))
+        mockMvc.perform(get("/api/v1/venues/venue-id/6"))
             .andExpect(status().isOk)
             .andExpect(jsonPath("$.name").value("Allianz Arena"))
-            .andExpect(jsonPath("$.apiId").value(6))
+            .andExpect(jsonPath("$.venueId").value(6))
     }
 
     @Test
-    fun `should return null when venue api id is not found`() {
-        given(venueService.getVenueByApiId(anyInt())).willReturn(null)
+    fun `should return 404 when venue api id is not found`() {
+        given(venueService.getVenueByVenueId(anyInt())).willThrow(ResourceNotFoundException("Venue not found"))
 
-        mockMvc.perform(get("/api/v1/venues/api-id/999"))
-            .andExpect(status().isOk)
+        mockMvc.perform(get("/api/v1/venues/venue-id/999"))
+            .andExpect(status().isNotFound)
     }
 
     @Test
@@ -95,10 +96,10 @@ class VenueControllerTest {
     }
 
     @Test
-    fun `should return null when venue name is not found`() {
-        given(venueService.getVenueByName(anyString())).willReturn(null)
+    fun `should return 404 when venue name is not found`() {
+        given(venueService.getVenueByName(anyString())).willThrow(ResourceNotFoundException("Venue not found"))
 
         mockMvc.perform(get("/api/v1/venues/name/NonExistent"))
-            .andExpect(status().isOk)
+            .andExpect(status().isNotFound)
     }
 }

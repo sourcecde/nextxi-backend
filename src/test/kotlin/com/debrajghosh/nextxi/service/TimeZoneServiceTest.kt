@@ -1,11 +1,12 @@
 package com.debrajghosh.nextxi.service
 
-import com.debrajghosh.nextxi.dto.TimeZoneDTO
 import com.debrajghosh.nextxi.entity.TimeZone
+import com.debrajghosh.nextxi.exception.ResourceNotFoundException
 import com.debrajghosh.nextxi.repository.TimeZoneRepository
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
+import java.util.Optional
 
 class TimeZoneServiceTest {
 
@@ -28,32 +29,31 @@ class TimeZoneServiceTest {
     @Test
     fun `should return timezone by name`() {
 
-        val timeZone = TimeZoneDTO(
+        val timeZone = TimeZone(
             id = 1L,
             timeZoneName = "Europe/Vienna"
         )
 
         Mockito.`when`(
             repository.findByTimeZoneName("Europe/Vienna")
-        ).thenReturn(timeZone)
+        ).thenReturn(Optional.of(timeZone))
 
         val result = timeZoneService.getTimeZoneByName("Europe/Vienna")
 
         Assertions.assertNotNull(result)
-        Assertions.assertEquals(1L, result?.id)
-        Assertions.assertEquals("Europe/Vienna", result?.timeZoneName)
+        Assertions.assertEquals(1L, result.id)
+        Assertions.assertEquals("Europe/Vienna", result.timeZoneName)
     }
 
     @Test
-    fun `should return null when timezone is not found`() {
+    fun `should throw ResourceNotFoundException when timezone is not found`() {
 
         Mockito.`when`(
             repository.findByTimeZoneName("Europe/Vienna")
-        ).thenReturn(null)
+        ).thenReturn(Optional.empty())
 
-        val result = timeZoneService.getTimeZoneByName("Europe/Vienna")
-
-        Assertions.assertNull(result)
+        Assertions.assertThrows(ResourceNotFoundException::class.java) {
+            timeZoneService.getTimeZoneByName("Europe/Vienna")
+        }
     }
-
 }
