@@ -1,4 +1,4 @@
-CREATE TABLE players (
+CREATE TABLE IF NOT EXISTS players (
          id BIGSERIAL PRIMARY KEY NOT NULL,
          api_id BIGINT NOT NULL UNIQUE,
          name VARCHAR(255) NOT NULL,
@@ -18,6 +18,6 @@ CREATE TABLE players (
          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX idx_players_name ON players(name);
-CREATE INDEX idx_players_nationality ON players(nationality);
-CREATE INDEX idx_players_position ON players(position);
+CREATE INDEX IF NOT EXISTS idx_players_name ON players(name);
+CREATE INDEX IF NOT EXISTS idx_players_nationality ON players(nationality);
+CREATE INDEX IF NOT EXISTS idx_players_position ON players(position);
