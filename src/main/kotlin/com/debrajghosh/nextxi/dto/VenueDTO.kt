@@ -3,7 +3,7 @@ import com.debrajghosh.nextxi.entity.Venue
 
 data class VenueDTO(
     val id: Long,
-    val apiId: Int,
+    val venueId: Int,
     val name: String,
     val address: String?,
     val city: String?,
@@ -16,7 +16,7 @@ data class VenueDTO(
         fun fromObject(venue: Venue): VenueDTO {
             return VenueDTO(
                 id = venue.id,
-                apiId = venue.apiId,
+                venueId = venue.venueId,
                 name = venue.name,
                 address = venue.address,
                 city = venue.city,

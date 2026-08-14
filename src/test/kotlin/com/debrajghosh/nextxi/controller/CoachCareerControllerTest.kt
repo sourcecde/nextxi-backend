@@ -3,6 +3,7 @@ package com.debrajghosh.nextxi.controller
 import com.debrajghosh.nextxi.dto.CoachCareerDTO
 import com.debrajghosh.nextxi.service.CoachCareerService
 import org.junit.jupiter.api.Test
+import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.BDDMockito.given
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,8 +27,8 @@ class CoachCareerControllerTest {
     @Test
     fun `should return all careers`() {
         val careers = listOf(
-            CoachCareerDTO(1L, 1L, 1L, LocalDate.of(2016, 7, 1), null),
-            CoachCareerDTO(2L, 2L, 3L, LocalDate.of(2010, 1, 1), LocalDate.of(2015, 12, 31))
+            CoachCareerDTO(1L, 1, 1L, LocalDate.of(2016, 7, 1), null),
+            CoachCareerDTO(2L, 2, 3L, LocalDate.of(2010, 1, 1), LocalDate.of(2015, 12, 31))
         )
 
         given(service.getAllCareers()).willReturn(careers)
@@ -40,7 +41,7 @@ class CoachCareerControllerTest {
 
     @Test
     fun `should return career by id`() {
-        val career = CoachCareerDTO(1L, 1L, 1L, LocalDate.of(2016, 7, 1), null)
+        val career = CoachCareerDTO(1L, 1, 1L, LocalDate.of(2016, 7, 1), null)
 
         given(service.getCareerById(anyLong())).willReturn(career)
 
@@ -52,9 +53,9 @@ class CoachCareerControllerTest {
 
     @Test
     fun `should return careers by coach id`() {
-        val careers = listOf(CoachCareerDTO(1L, 1L, 1L, LocalDate.of(2016, 7, 1), null))
+        val careers = listOf(CoachCareerDTO(1L, 1, 1L, LocalDate.of(2016, 7, 1), null))
 
-        given(service.getCareersByCoach(anyLong())).willReturn(careers)
+        given(service.getCareersByCoach(anyInt())).willReturn(careers)
 
         mockMvc.perform(get("/api/v1/coach-careers/coach/1"))
             .andExpect(status().isOk)
@@ -63,7 +64,7 @@ class CoachCareerControllerTest {
 
     @Test
     fun `should return careers by team id`() {
-        val careers = listOf(CoachCareerDTO(2L, 2L, 3L, LocalDate.of(2010, 1, 1), LocalDate.of(2015, 12, 31)))
+        val careers = listOf(CoachCareerDTO(2L, 2, 3L, LocalDate.of(2010, 1, 1), LocalDate.of(2015, 12, 31)))
 
         given(service.getCareersByTeam(anyLong())).willReturn(careers)
 

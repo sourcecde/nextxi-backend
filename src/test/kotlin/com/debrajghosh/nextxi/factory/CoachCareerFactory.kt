@@ -8,7 +8,7 @@ object CoachCareerFactory {
 
     fun career1() = CoachCareer(
         id = 1L,
-        coachId = 1L,
+        coachId = 1,
         teamId = 1L,
         coach = null,
         team = null,
@@ -20,7 +20,7 @@ object CoachCareerFactory {
 
     fun career2() = CoachCareer(
         id = 2L,
-        coachId = 2L,
+        coachId = 2,
         teamId = 3L,
         coach = null,
         team = null,
@@ -30,7 +30,7 @@ object CoachCareerFactory {
         updatedAt = LocalDateTime.now()
     )
 
-    fun custom(id: Long = 1L, coachId: Long = 1L, teamId: Long = 1L) = CoachCareer(
+    fun custom(id: Long = 1L, coachId: Int = 1, teamId: Long = 1L) = CoachCareer(
         id = id,
         coachId = coachId,
         teamId = teamId,

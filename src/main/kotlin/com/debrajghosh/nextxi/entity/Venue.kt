@@ -16,8 +16,8 @@ class Venue(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long,
 
-    @Column(name = "api_id", nullable = false)
-    var apiId: Int,
+    @Column(name = "venue_id", nullable = false)
+    var venueId: Int,
 
     @Column(nullable = false, length = 255)
     var name: String,

@@ -54,23 +54,23 @@ class VenueServiceTest {
     }
 
     @Test
-    fun `should return venue by api id`() {
+    fun `should return venue by venue id`() {
         val venue = VenueFactory.allianzArena()
 
-        Mockito.`when`(repository.findByApiId(6)).thenReturn(venue)
+        Mockito.`when`(repository.findByVenueId(6)).thenReturn(venue)
 
-        val result = service.getVenueByApiId(6)
+        val result = service.getVenueByVenueId(6)
 
         Assertions.assertEquals(1L, result?.id)
         Assertions.assertEquals("Allianz Arena", result?.name)
-        Assertions.assertEquals(6, result?.apiId)
+        Assertions.assertEquals(6, result?.venueId)
     }
 
     @Test
-    fun `should return null when venue api id is not found`() {
-        Mockito.`when`(repository.findByApiId(999)).thenReturn(null)
+    fun `should return null when venue venue id is not found`() {
+        Mockito.`when`(repository.findByVenueId(999)).thenReturn(null)
 
-        val result = service.getVenueByApiId(999)
+        val result = service.getVenueByVenueId(999)
 
         Assertions.assertNull(result)
     }

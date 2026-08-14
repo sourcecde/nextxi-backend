@@ -1,5 +1,7 @@
 CREATE TABLE IF NOT EXISTS teams (
-       id BIGINT PRIMARY KEY,
+       id BIGSERIAL PRIMARY KEY NOT NULL,
+
+       team_id INTEGER UNIQUE NOT NULL,
 
        venue_id BIGINT,
 
@@ -14,7 +16,7 @@ CREATE TABLE IF NOT EXISTS teams (
        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-       CONSTRAINT fk_team_venue FOREIGN KEY (venue_id) REFERENCES venues(id) ON DELETE SET NULL
+       CONSTRAINT fk_team_venue FOREIGN KEY (venue_id) REFERENCES venues(venue_id) ON DELETE SET NULL
 );
 
 CREATE INDEX IF NOT EXISTS idx_teams_country ON teams(country);
