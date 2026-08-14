@@ -21,6 +21,11 @@ class CoachController(private val coachService: CoachService) {
         return coachService.getCoachById(id)?.let { ResponseEntity.ok(it) } ?: ResponseEntity.notFound().build()
     }
 
+    @GetMapping("/coach-id/{coachId}")
+    fun getCoachByCoachId(@PathVariable coachId: Int): ResponseEntity<CoachDTO> {
+        return coachService.getCoachByCoachId(coachId)?.let { ResponseEntity.ok(it) } ?: ResponseEntity.notFound().build()
+    }
+
     @GetMapping("/name/{fullName}")
     fun getCoachByFullName(@PathVariable fullName: String): ResponseEntity<CoachDTO> {
         return coachService.getCoachByFullName(fullName)?.let { ResponseEntity.ok(it) } ?: ResponseEntity.notFound().build()

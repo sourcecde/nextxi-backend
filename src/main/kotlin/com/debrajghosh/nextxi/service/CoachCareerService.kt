@@ -15,7 +15,7 @@ class CoachCareerService(private val repository: CoachCareerRepository) {
         return repository.findById(id).orElse(null)?.let(CoachCareerDTO::fromObject)
     }
 
-    fun getCareersByCoach(coachId: Long): List<CoachCareerDTO> {
+    fun getCareersByCoach(coachId: Int): List<CoachCareerDTO> {
         return repository.findByCoachId(coachId).map(CoachCareerDTO::fromObject)
     }
 

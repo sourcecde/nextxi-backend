@@ -8,6 +8,7 @@ object CoachFactory {
 
     fun guardiola() = Coach(
         id = 1L,
+        coachId = 1,
         currentTeamId = 1L,
         currentTeam = null,
         firstName = "Pep",
@@ -27,6 +28,7 @@ object CoachFactory {
 
     fun mourinho() = Coach(
         id = 2L,
+        coachId = 2,
         currentTeamId = null,
         currentTeam = null,
         firstName = "Jose",
@@ -46,6 +48,7 @@ object CoachFactory {
 
     fun custom(
         id: Long = 1L,
+        coachId: Int = 1,
         currentTeamId: Long? = null,
         firstName: String? = "Test",
         lastName: String? = "Coach",
@@ -54,6 +57,7 @@ object CoachFactory {
         nationality: String? = "Testland"
     ) = Coach(
         id = id,
+        coachId = coachId,
         currentTeamId = currentTeamId,
         currentTeam = null,
         firstName = firstName,

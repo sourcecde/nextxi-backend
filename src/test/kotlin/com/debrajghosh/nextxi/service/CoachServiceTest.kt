@@ -48,6 +48,29 @@ class CoachServiceTest {
     }
 
     @Test
+    fun `should return coach by coach id`() {
+        val coach = CoachFactory.guardiola()
+
+        Mockito.`when`(repository.findByCoachId(1)).thenReturn(coach)
+
+        val result = service.getCoachByCoachId(1)
+
+        Assertions.assertEquals(1L, result?.id)
+        Assertions.assertEquals(1, result?.coachId)
+        Assertions.assertEquals("Pep Guardiola", result?.fullName)
+        Assertions.assertEquals("Spain", result?.nationality)
+    }
+
+    @Test
+    fun `should return null when coach coach id is not found`() {
+        Mockito.`when`(repository.findByCoachId(999)).thenReturn(null)
+
+        val result = service.getCoachByCoachId(999)
+
+        Assertions.assertNull(result)
+    }
+
+    @Test
     fun `should return coach by full name`() {
         val coach = CoachFactory.mourinho()
 

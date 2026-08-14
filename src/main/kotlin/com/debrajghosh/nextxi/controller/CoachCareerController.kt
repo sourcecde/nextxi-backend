@@ -21,7 +21,7 @@ class CoachCareerController(private val service: CoachCareerService) {
     }
 
     @GetMapping("/coach/{coachId}")
-    fun getCareersByCoach(@PathVariable coachId: Long): List<CoachCareerDTO> = service.getCareersByCoach(coachId)
+    fun getCareersByCoach(@PathVariable coachId: Int): List<CoachCareerDTO> = service.getCareersByCoach(coachId)
 
     @GetMapping("/team/{teamId}")
     fun getCareersByTeam(@PathVariable teamId: Long): List<CoachCareerDTO> = service.getCareersByTeam(teamId)

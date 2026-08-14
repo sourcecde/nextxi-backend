@@ -21,13 +21,13 @@ class CoachCareer(
     var id: Long? = null,
 
     @Column(name = "coach_id", nullable = false)
-    var coachId: Long,
+    var coachId: Int,
 
     @Column(name = "team_id", nullable = false)
     var teamId: Long,
 
     @ManyToOne
-    @JoinColumn(name = "coach_id", nullable = false, insertable = false, updatable = false, foreignKey = ForeignKey(name = "fk_coach_career_coach"))
+    @JoinColumn(name = "coach_id", referencedColumnName = "coach_id", nullable = false, insertable = false, updatable = false, foreignKey = ForeignKey(name = "fk_coach_career_coach"))
     var coach: Coach? = null,
 
     @ManyToOne
