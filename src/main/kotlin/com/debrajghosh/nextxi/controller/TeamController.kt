@@ -33,6 +33,13 @@ class TeamController(
             ?: ResponseEntity.notFound().build()
     }
 
+    @GetMapping("/team-id/{teamId}")
+    fun getTeamByTeamId(@PathVariable teamId: Int): ResponseEntity<TeamDTO> {
+        return teamService.getTeamByTeamId(teamId)
+            ?.let { ResponseEntity.ok(it) }
+            ?: ResponseEntity.notFound().build()
+    }
+
     @GetMapping("/name/{name}")
     fun getTeamByName(@PathVariable name: String): ResponseEntity<TeamDTO> {
         return teamService.getTeamByName(name)
