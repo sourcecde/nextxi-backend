@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface TeamRepository : JpaRepository<Team, Long> {
+    fun findByTeamId(teamId: Int): Team?
     fun findByName(name: String): Team?
     fun findByCode(code: String): Team?
     fun findByCountry(country: String): List<Team>

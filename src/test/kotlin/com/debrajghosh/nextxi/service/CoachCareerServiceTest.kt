@@ -21,8 +21,8 @@ class CoachCareerServiceTest {
         val result = service.getAllCareers()
 
         Assertions.assertEquals(2, result.size)
-        Assertions.assertEquals(1L, result[0].coachId)
-        Assertions.assertEquals(2L, result[1].coachId)
+        Assertions.assertEquals(1, result[0].coachId)
+        Assertions.assertEquals(2, result[1].coachId)
     }
 
     @Test
@@ -34,7 +34,7 @@ class CoachCareerServiceTest {
         val result = service.getCareerById(1L)
 
         Assertions.assertEquals(1L, result?.id)
-        Assertions.assertEquals(1L, result?.coachId)
+        Assertions.assertEquals(1, result?.coachId)
         Assertions.assertEquals(1L, result?.teamId)
     }
 
@@ -51,12 +51,12 @@ class CoachCareerServiceTest {
     fun `should return careers by coach id`() {
         val careers = listOf(CoachCareerFactory.career1())
 
-        Mockito.`when`(repository.findByCoachId(1L)).thenReturn(careers)
+        Mockito.`when`(repository.findByCoachId(1)).thenReturn(careers)
 
-        val result = service.getCareersByCoach(1L)
+        val result = service.getCareersByCoach(1)
 
         Assertions.assertEquals(1, result.size)
-        Assertions.assertEquals(1L, result[0].coachId)
+        Assertions.assertEquals(1, result[0].coachId)
     }
 
     @Test

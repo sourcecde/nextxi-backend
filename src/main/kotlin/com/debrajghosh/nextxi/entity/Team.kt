@@ -3,6 +3,8 @@ package com.debrajghosh.nextxi.entity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.ForeignKey
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
@@ -14,7 +16,11 @@ import java.time.LocalDateTime
 class Team(
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long,
+
+    @Column(name = "team_id", nullable = false)
+    var teamId: Int,
 
     @Column(name = "venue_id")
     var venueId: Long? = null,

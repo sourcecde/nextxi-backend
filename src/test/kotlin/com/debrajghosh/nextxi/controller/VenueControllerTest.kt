@@ -63,22 +63,22 @@ class VenueControllerTest {
     }
 
     @Test
-    fun `should return venue by api id`() {
+    fun `should return venue by venue id`() {
         val venue = VenueDTO(1L, 6, "Allianz Arena", "Werner-Heisenberg-Allee 25", "Munich", "Germany", 75000, "Grass", "https://media.api-sports.io/venues/1.png")
 
-        given(venueService.getVenueByApiId(anyInt())).willReturn(venue)
+        given(venueService.getVenueByVenueId(anyInt())).willReturn(venue)
 
-        mockMvc.perform(get("/api/v1/venues/api-id/6"))
+        mockMvc.perform(get("/api/v1/venues/venue-id/6"))
             .andExpect(status().isOk)
             .andExpect(jsonPath("$.name").value("Allianz Arena"))
-            .andExpect(jsonPath("$.apiId").value(6))
+            .andExpect(jsonPath("$.venueId").value(6))
     }
 
     @Test
-    fun `should return null when venue api id is not found`() {
-        given(venueService.getVenueByApiId(anyInt())).willReturn(null)
+    fun `should return null when venue venue id is not found`() {
+        given(venueService.getVenueByVenueId(anyInt())).willReturn(null)
 
-        mockMvc.perform(get("/api/v1/venues/api-id/999"))
+        mockMvc.perform(get("/api/v1/venues/venue-id/999"))
             .andExpect(status().isOk)
     }
 

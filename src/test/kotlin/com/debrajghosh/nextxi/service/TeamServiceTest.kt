@@ -58,6 +58,28 @@ class TeamServiceTest {
     }
 
     @Test
+    fun `should return team by team id`() {
+        val team = TeamFactory.bayern()
+
+        Mockito.`when`(repository.findByTeamId(157)).thenReturn(team)
+
+        val result = service.getTeamByTeamId(157)
+
+        Assertions.assertEquals(1L, result?.id)
+        Assertions.assertEquals(157, result?.teamId)
+        Assertions.assertEquals("Bayern Munich", result?.name)
+    }
+
+    @Test
+    fun `should return null when team team id is not found`() {
+        Mockito.`when`(repository.findByTeamId(999)).thenReturn(null)
+
+        val result = service.getTeamByTeamId(999)
+
+        Assertions.assertNull(result)
+    }
+
+    @Test
     fun `should return team by name`() {
         val team = TeamFactory.manchester()
 

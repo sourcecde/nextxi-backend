@@ -32,13 +32,13 @@ class VenueService(private val repository: VenueRepository) {
     }
 
     /**
-     * Retrieve a venue by API ID.
+     * Retrieve a venue by Venue ID.
      *
-     * @param apiId External API venue ID.
+     * @param venueId External API venue ID.
      * @return VenueDTO or null if not found.
      */
-    fun getVenueByApiId(apiId: Int): VenueDTO? {
-        return repository.findByApiId(apiId)
+    fun getVenueByVenueId(venueId: Int): VenueDTO? {
+        return repository.findByVenueId(venueId)
             ?.let(VenueDTO::fromObject)
     }
 

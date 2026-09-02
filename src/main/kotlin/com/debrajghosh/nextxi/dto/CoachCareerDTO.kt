@@ -5,7 +5,7 @@ import java.time.LocalDate
 
 data class CoachCareerDTO(
     val id: Long?,
-    val coachId: Long,
+    val coachId: Int,
     val teamId: Long,
     val startDate: LocalDate,
     val endDate: LocalDate?

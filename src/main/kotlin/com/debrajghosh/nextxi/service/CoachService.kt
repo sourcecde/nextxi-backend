@@ -17,6 +17,10 @@ class CoachService(private val repository: CoachRepository) {
             ?.let(CoachDTO::fromObject)
     }
 
+    fun getCoachByCoachId(coachId: Int): CoachDTO? {
+        return repository.findByCoachId(coachId)?.let(CoachDTO::fromObject)
+    }
+
     fun getCoachByFullName(fullName: String): CoachDTO? {
         return repository.findByFullName(fullName)?.let(CoachDTO::fromObject)
     }

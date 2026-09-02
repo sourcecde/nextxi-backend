@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface VenueRepository : JpaRepository<Venue, Long> {
-    fun findByApiId(apiId: Int): Venue?
+    fun findByVenueId(venueId: Int): Venue?
     fun findByName(name: String): Venue?
 }

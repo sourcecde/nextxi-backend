@@ -33,6 +33,17 @@ class TeamService(private val repository: TeamRepository) {
     }
 
     /**
+     * Retrieves a team by team ID (API ID).
+     *
+     * @param teamId Team ID.
+     * @return TeamDTO or null if not found.
+     */
+    fun getTeamByTeamId(teamId: Int): TeamDTO? {
+        return repository.findByTeamId(teamId)
+            ?.let(TeamDTO::fromObject)
+    }
+
+    /**
      * Retrieves a team by name.
      *
      * @param name Team name.

@@ -23,9 +23,9 @@ class VenueController(
         return venueService.getVenueById(id)
     }
 
-    @GetMapping("/api-id/{apiId}")
-    fun getVenueByApiId(@PathVariable apiId: Int): VenueDTO? {
-        return venueService.getVenueByApiId(apiId)
+    @GetMapping("/venue-id/{venueId}")
+    fun getVenueByVenueId(@PathVariable venueId: Int): VenueDTO? {
+        return venueService.getVenueByVenueId(venueId)
     }
 
     @GetMapping("/name/{name}")

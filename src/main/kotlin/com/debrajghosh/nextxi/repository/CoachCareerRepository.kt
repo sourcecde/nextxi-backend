@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface CoachCareerRepository : JpaRepository<CoachCareer, Long> {
-    fun findByCoachId(coachId: Long): List<CoachCareer>
+    fun findByCoachId(coachId: Int): List<CoachCareer>
     fun findByTeamId(teamId: Long): List<CoachCareer>
 }

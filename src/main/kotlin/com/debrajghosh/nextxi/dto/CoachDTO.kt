@@ -5,6 +5,7 @@ import java.time.LocalDate
 
 data class CoachDTO(
     val id: Long,
+    val coachId: Int,
     val currentTeamId: Long?,
     val firstName: String?,
     val lastName: String?,
@@ -22,6 +23,7 @@ data class CoachDTO(
         fun fromObject(coach: Coach): CoachDTO {
             return CoachDTO(
                 id = coach.id,
+                coachId = coach.coachId,
                 currentTeamId = coach.currentTeamId,
                 firstName = coach.firstName,
                 lastName = coach.lastName,
